@@ -7,7 +7,7 @@
 </h4>
 
 <div align="center">
-  <img alt="Boards" width="60%" src="./screenshot.png"/>
+  <img alt="screenshot" src="./screenshot.png"/>
 </div>
 
 ## Install

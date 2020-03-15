@@ -5,7 +5,7 @@ const dayjs = require('dayjs')
 const options = {
     types: {
         debug: {
-            color: 'blue'
+            color: false
         },
         await: {
             badge: false
@@ -19,7 +19,7 @@ signale.config({
 });
 
 const { warn, success, error, star, note, log, await: print } = signale
-const { gray, blue, magenta, cyan, bold, underline } = chalk
+const { gray, magenta, cyan, bold, underline } = chalk
 
 const getTags = (bookmark) => {
     let tags = ''
@@ -45,7 +45,7 @@ const getExcerpt = (bookmark) => {
 
 const logBookmarkWithTag = (bookmark) => {
     const tags = getTags(bookmark)
-    const data = { prefix: blue(bookmark.id), message: bookmark.title, suffix: magenta(tags) }
+    const data = { prefix: bookmark.id, message: bookmark.title, suffix: magenta(tags) }
     if (bookmark.star) {
         star(data)
     } else {
@@ -55,7 +55,7 @@ const logBookmarkWithTag = (bookmark) => {
 
 const logBookmark = (bookmark) => {
     const createdAt = getCreatedAt(bookmark)
-    const data = { prefix: blue(bookmark.id), message: bookmark.title, suffix: magenta(createdAt) }
+    const data = { prefix: bookmark.id, message: bookmark.title, suffix: magenta(createdAt) }
     if (bookmark.star) {
         star(data)
     } else {
