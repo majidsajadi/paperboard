@@ -15,7 +15,7 @@
         "url": "https://github.com/majidsajadi"
     },
     "bin": {
-        "tb": "index.js"
+        "korgin": "index.js"
     },
     "keywords": [
         "bookmark",
