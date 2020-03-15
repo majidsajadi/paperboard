@@ -16,6 +16,10 @@ Bookmark.belongsToMany(Tag, {
     through: 'bookmarkTags'
 });
 
+Tag.belongsToMany(Bookmark, {
+    through: 'bookmarkTags'
+});
+
 sequelize.sync()
 
 module.exports = {

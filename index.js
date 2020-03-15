@@ -3,14 +3,14 @@ const program = require('commander');
 const korgin = require('./src/korgin');
 
 program
-    .command('list')
+    .command('list [tag]>')
     .description('display list view')
     .option('-s, --star', 'starred bookmarks')
     .option('-a, --archive', 'archived bookmarks')
     .option('-t, --tag', 'display bookmarks by tag')
     .option('-d, --detail', 'display detailed bookmarks')
-    .action((options) => {
-        korgin.list(options)
+    .action((tag, options) => {
+        korgin.list(tag, options)
     });
 
 program

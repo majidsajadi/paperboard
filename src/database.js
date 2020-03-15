@@ -48,6 +48,32 @@ const getAllBookmarks = async (options) => {
     }
 }
 
+const getBookmarksByTag = async (tag, options) => {
+    try {
+        const where = {
+            archive: options.archive || false,
+        }
+
+        if (options.star) {
+            where.star = true
+        }
+
+        const bookmarks = await models.Bookmark.findAll({ 
+            where, 
+            include: {
+                model: models.Tag, 
+                where: {
+                    name: tag
+                }
+            } 
+        })
+
+        return bookmarks
+    } catch (error) {
+        throw new Error('Fetching bookmark from database failed')
+    }
+}
+
 const findBookmarkById = async (id) => {
     try {
         const bookmark = await models.Bookmark.findByPk(id, {
@@ -139,5 +165,6 @@ module.exports = {
     updateBookmarkArchive,
     updateBookmarkStar,
     addTagsToBookmark,
-    removeTagsFromBookmark
+    removeTagsFromBookmark,
+    getBookmarksByTag
 }

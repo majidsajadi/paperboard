@@ -37,15 +37,23 @@ const add = async (url, tags) => {
     }
 }
 
-const list = async (options) => {
+const list = async (tag, options) => {
     try {
         const star = options.star
         const archive = options.archive
-
-        const bookmarks = await database.getAllBookmarks({
-            archive,
-            star
-        })
+        let bookmarks
+        if (tag) {
+            const parsedTag = core.parseTag(tag)
+            bookmarks = await database.getBookmarksByTag(parsedTag, {
+                archive,
+                star
+            })
+        } else {
+            bookmarks = await database.getAllBookmarks({
+                archive,
+                star
+            })
+        }
 
         if (bookmarks) {
             if (options.tag) {

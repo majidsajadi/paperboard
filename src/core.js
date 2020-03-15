@@ -34,6 +34,14 @@ const parseBookmarkContent = (raw) => {
     }
 }
 
+const parseTag = (tag) => {
+    if (tag.indexOf('@') === -1) {
+        throw new Error("Tag is not valid")
+    } 
+
+    return tag.replace('@', '')
+}
+
 const parseTags = (tags) => {
     try {
         const parsedTags = []
@@ -154,6 +162,7 @@ module.exports = {
     fetchBookmark,
     parseBookmarkContent,
     parseTags,
+    parseTag,
     parseUrl,
     openBrowser,
     makeTempFile,

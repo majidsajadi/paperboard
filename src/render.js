@@ -24,9 +24,9 @@ const { gray, blue, magenta, cyan, bold, underline } = chalk
 const getTags = (bookmark) => {
     let tags = ''
 
-    if (!bookmark.tags.length) {
+    if (!bookmark.tags || !bookmark.tags.length) {
         return tags
-    }
+    }   
 
     bookmark.tags.forEach(tag => {
         tags += `@${tag.name} `
@@ -68,7 +68,7 @@ const logTag = (tag) => {
     log({ message: bold(cyan(`@${tag.name}`)) })
 }
 
-const displayBookmarks = (bookmarks) => {
+const displayBookmarks = (bookmarks, options) => {
     bookmarks.map(bookmark => {
         logBookmarkWithTag(bookmark)
         if (options.detail) {
