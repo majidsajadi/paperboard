@@ -39,6 +39,10 @@ const getCreatedAt = (bookmark) => {
     return dayjs(bookmark.createdAt).format("YY MMM DD")
 }
 
+const getExcerpt = (bookmark) => {
+    return bookmark.excerpt.substring(0,124) + '...';
+}
+
 const logBookmarkWithTag = (bookmark) => {
     const tags = getTags(bookmark)
     const data = { prefix: blue(bookmark.id), message: bookmark.title, suffix: magenta(tags) }
@@ -60,8 +64,9 @@ const logBookmark = (bookmark) => {
 }
 
 const logDetails = (bookmark) => {
+    const excerpt = getExcerpt(bookmark)
     print({ prefix: "    ", message: underline(gray(bookmark.hostname)) })
-    print({ prefix: "    ", message: gray(bookmark.excerpt) })
+    print({ prefix: "    ", message: gray(excerpt) })
 }
 
 const logTag = (tag) => {
