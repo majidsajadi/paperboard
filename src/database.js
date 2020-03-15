@@ -26,6 +26,8 @@ const createBookmark = async (data, tags) => {
 
         return bookmark
     } catch (error) {
+        console.log(error)
+
         throw new Error('Creating bookmark failed')
     }
 }
