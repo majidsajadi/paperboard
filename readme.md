@@ -59,7 +59,7 @@ Commands:
 
 ## Development
 
-Any contribution, pull requests, issue and feedbacks are heavily appricatet
+Any contribution, pull requests, issue and feedbacks would be greatly appreciated.
 
 - Fork the repository and clone it to your machine
 - Navigate to your local fork: `cd taskbook`
