@@ -94,11 +94,15 @@ const makeTempFile = async (bookmark) => {
         const data = ejs.render(template, { 
             title: bookmark.title,
             content: bookmark.content,
+            excerpt: bookmark.excerpt,
+            href: bookmark.href,
+            hostname: bookmark.hostname,
             stylePath
         });
         await write(tempFile, data)
         return tempFile
     } catch (error) {
+        console.log(error)
         throw new Error('Generating bookmark file failed')
     }
 }
