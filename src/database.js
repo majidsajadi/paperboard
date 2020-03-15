@@ -120,8 +120,13 @@ const removeTagsFromBookmark = async (id, tags) => {
 }
 
 const getAllTags = async () => {
-    const tags = await models.Tag.findAll()
-    return tags
+    try {
+        const tags = await models.Tag.findAll()
+        return tags
+    } catch (error) {
+        throw new Error('Finding tags failed')
+    }
+    
 }
 
 module.exports = {

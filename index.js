@@ -4,9 +4,10 @@ const korgin = require('./src/korgin');
 
 program
     .command('list')
-    .description('display all bookmarks')
-    .option('-s, --star', 'Display starred bookmarks')
-    .option('-a, --archive', 'Display archived bookmarks')
+    .description('display list view')
+    .option('-s, --star', 'starred bookmarks')
+    .option('-a, --archive', 'archived bookmarks')
+    .option('-t, --tag', 'display bookmarks by tag')
     .action((options) => {
         korgin.list(options)
     });

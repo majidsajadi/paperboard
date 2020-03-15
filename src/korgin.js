@@ -48,7 +48,12 @@ const list = async (options) => {
         })
 
         if (bookmarks) {
-            render.displayBookmarks(bookmarks)
+            if (options.tag) {
+                const tags = await database.getAllTags()
+                render.displayBookmarksByTag(bookmarks, tags)
+            } else {
+                render.displayBookmarks(bookmarks)
+            }
         } else {
             render.error('Cant find any bookmark');
         }
