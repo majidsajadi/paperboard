@@ -1,7 +1,7 @@
 {
     "name": "korgin",
     "productName": "Korgin",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "description": "Korgin, is an cli application for managing a reading list of bookmarks from the Internet.",
     "repository": "majidsajadi/korgin",
     "license": "MIT",
