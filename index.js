@@ -8,6 +8,7 @@ program
     .option('-s, --star', 'starred bookmarks')
     .option('-a, --archive', 'archived bookmarks')
     .option('-t, --tag', 'display bookmarks by tag')
+    .option('-d, --detail', 'display detailed bookmarks')
     .action((options) => {
         korgin.list(options)
     });

@@ -7,6 +7,9 @@ const options = {
         debug: {
             color: 'blue'
         },
+        await: {
+            badge: false
+        }
     }
 };
 
@@ -15,8 +18,8 @@ signale.config({
     displayLabel: false,
 });
 
-const { warn, success, error, star, note, log } = signale
-const { gray, bold } = chalk
+const { warn, success, error, star, note, log, await: print } = signale
+const { gray, blue, magenta, cyan, bold, underline } = chalk
 
 const getTags = (bookmark) => {
     let tags = ''
@@ -38,7 +41,7 @@ const getCreatedAt = (bookmark) => {
 
 const logBookmarkWithTag = (bookmark) => {
     const tags = getTags(bookmark)
-    const data = { prefix: gray(bookmark.id), message: bookmark.title, suffix: gray(tags) }
+    const data = { prefix: blue(bookmark.id), message: bookmark.title, suffix: magenta(tags) }
     if (bookmark.star) {
         star(data)
     } else {
@@ -48,7 +51,7 @@ const logBookmarkWithTag = (bookmark) => {
 
 const logBookmark = (bookmark) => {
     const createdAt = getCreatedAt(bookmark)
-    const data = { prefix: gray(bookmark.id), message: bookmark.title, suffix: gray(createdAt) }
+    const data = { prefix: blue(bookmark.id), message: bookmark.title, suffix: magenta(createdAt) }
     if (bookmark.star) {
         star(data)
     } else {
@@ -56,28 +59,41 @@ const logBookmark = (bookmark) => {
     }
 }
 
+const logDetails = (bookmark) => {
+    print({ prefix: "    ", message: underline(gray(bookmark.hostname)) })
+    print({ prefix: "    ", message: gray(bookmark.excerpt) })
+}
+
+const logTag = (tag) => {
+    log({ message: bold(cyan(`@${tag.name}`)) })
+}
+
 const displayBookmarks = (bookmarks) => {
     bookmarks.map(bookmark => {
         logBookmarkWithTag(bookmark)
+        if (options.detail) {
+            logDetails(bookmark)
+        }
     })
 }
 
-const displayBookmarksByTag = (bookmarks, tags) => {
+const displayBookmarksByTag = (bookmarks, tags, options) => {
     tags.map(tag => {
         const filteredBookmarks = bookmarks.filter(bookmark => {
             const bookmarkTags = bookmark.tags.map(tag => tag.name)
             return bookmarkTags.includes(tag.name)
         })
         if (filteredBookmarks.length) {
-            log({ message: bold(`@${tag.name}`) })
+            logTag(tag)
             filteredBookmarks.forEach(bookmark => {
                 logBookmark(bookmark)
+                if (options.detail) {
+                    logDetails(bookmark)
+                }
             })
         }
     })
 }
-
-
 
 module.exports = {
     warn,
