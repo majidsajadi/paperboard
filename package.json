@@ -1,23 +1,41 @@
 {
-  "name": "korgin",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "axios": "^0.19.2",
-    "chalk": "^3.0.0",
-    "commander": "^5.0.0",
-    "ejs": "^3.0.1",
-    "jsdom": "^16.2.1",
-    "open": "^7.0.3",
-    "sequelize": "^5.21.5",
-    "signale": "^1.4.0",
-    "sqlite3": "^4.1.1"
-  }
+    "name": "korgin",
+    "productName": "Korgin",
+    "version": "0.1.0",
+    "description": "Korgin, is an cli application for managing a reading list of bookmarks from the Internet.",
+    "repository": "majidsajadi/korgin",
+    "license": "MIT",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": {
+        "name": "Majid Sajadi",
+        "email": "majidsajadi93@gmail.com",
+        "url": "https://github.com/majidsajadi"
+    },
+    "bin": {
+        "tb": "index.js"
+    },
+    "keywords": [
+        "bookmark",
+        "command",
+        "line",
+        "console",
+        "cli",
+        "app",
+        "pocket",
+        "instapaper"
+    ],
+    "dependencies": {
+        "axios": "^0.19.2",
+        "chalk": "^3.0.0",
+        "commander": "^5.0.0",
+        "ejs": "^3.0.1",
+        "jsdom": "^16.2.1",
+        "open": "^7.0.3",
+        "sequelize": "^5.21.5",
+        "signale": "^1.4.0",
+        "sqlite3": "^4.1.1"
+    }
 }
