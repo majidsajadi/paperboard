@@ -79,7 +79,7 @@ Examples:
 Any contribution, pull requests, issue and feedbacks would be greatly appreciated.
 
 - Fork the repository and clone it to your machine
-- Navigate to your local fork: `cd taskbook`
+- Navigate to your local fork: `cd korgin`
 - Install the project dependencies: `npm install` or `yarn install`
 
 ## License
