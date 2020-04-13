@@ -1,6 +1,9 @@
 #!/usr/bin/env node
 const program = require('commander');
 const korgin = require('./src/korgin');
+const server = require('./src/web/server');
+
+const port = 3000;
 
 program
     .command('list [tag]>')
@@ -70,5 +73,12 @@ program
     .action((id, tags) => {
         korgin.removeTag(id, tags)
     });
+
+program
+    .command('web')
+    .description('run korgin web')
+    .action(() => {
+        server.listen(port, () => console.log(`Example app listening at http://localhost:${port}`))
+    })
 
 program.parse(process.argv);

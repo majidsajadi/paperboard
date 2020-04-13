@@ -14,6 +14,8 @@ const add = async (url, tags) => {
             render.warn('Parsing bookmark...')
             const parsed = core.parseBookmarkContent(raw)
 
+            console.log(parsed)
+            
             const newBookmark = {
                 href: parsedUrl.href,
                 hostname: parsedUrl.hostname,
