@@ -3,12 +3,12 @@
   "version": "0.0.1",
   "productName": "Paperboard",
   "description": "A CLI application for managing a reading list of bookmarks from the Internet.",
-  "repository": "klaussinani/taskbook",
+  "repository": "majidsajadi/paperboard",
   "license": "MIT",
   "author": {
-    "name": "Klaus Sinani",
-    "email": "klaussinani@gmail.com",
-    "url": "https://klaussinani.github.io"
+    "name": "Majid Sajadi",
+    "email": "majidsajadi93@gmail.com",
+    "url": "https://github.com/majidsajadi"
   },
   "bin": {
     "paperboard": "index.js",
