@@ -9,15 +9,24 @@
 
   <body>
     <div class="container">
-      <div class="info">
-        <h3 class="title"><%- title %></h3>
-        <p>
-          <a href="<%- href %>"> <%- hostname %> </a>
-        </p>
-        <h5><%- excerpt %></h5>
+      <div>
+        <div class="title-container">
+          <h1><%- title %></h1>
+          <p class="info">
+            <a href="<%- href %>"> <%- hostname %> </a> *
+            <span> <%- createdAt %> </span>
+          </p>
+        </div>
+        <div class="excerpt">
+          <p><%- excerpt %></p>
+        </div>
       </div>
       <hr />
       <div><%- content %></div>
+      <p class="footer info">
+        <a href="<%- href %>"> <%- hostname %> </a> *
+        <span> <%- createdAt %> </span>
+      </p>
     </div>
   </body>
 </html>
