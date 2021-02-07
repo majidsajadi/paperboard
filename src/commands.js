@@ -28,10 +28,10 @@ function getAppDir() {
 }
 
 async function createBookmarkFile(bookmark) {
-  const templatePath = path.join(__dirname, '..', 'assets', 'template.ejs');
-  const stylePath = path.join(__dirname, '..', 'assets', 'mithqal.css');
+  const templatePath = path.join(__dirname, 'assets', 'template.ejs');
+  const stylePath = path.join(__dirname, 'assets', 'style.css');
 
-  const template = await fs.readFileSync(templatePath, 'utf8');
+  const template = fs.readFileSync(templatePath, 'utf8');
 
   const data = ejs.render(template, {
     title: bookmark.title,
@@ -39,6 +39,7 @@ async function createBookmarkFile(bookmark) {
     excerpt: bookmark.excerpt,
     href: bookmark.href,
     hostname: bookmark.hostname,
+    createdAt: moment(bookmark.createdAt).fromNow(),
     stylePath,
   });
 
@@ -46,9 +47,11 @@ async function createBookmarkFile(bookmark) {
   const appDir = getAppDir();
   const bookmarkFilePath = path.join(appDir, bookmarkFileName);
 
-  if (!fs.existsSync(bookmarkFilePath)) {
-    await fs.writeFileSync(bookmarkFilePath, data);
+  if (fs.existsSync(bookmarkFileName)) {
+    fs.rmSync(bookmarkFileName)
   }
+
+  fs.writeFileSync(bookmarkFilePath, data);
 
   return bookmarkFilePath;
 }
@@ -75,7 +78,7 @@ async function listBookmarks(args) {
 
     render.displayBookmarks(groupedByDate);
   } catch (error) {
-    render.displayError();
+    errorHandler(error);
   }
 }
 
@@ -84,14 +87,7 @@ async function showBookmark(id) {
     const bookmark = await BookmarkService.getBookmark(id);
     render.displayBookmark(bookmark);
   } catch (error) {
-    console.log(error);
-    switch (error.message) {
-      case 'Bookmark not found':
-        render.displayError(error.message);
-        break;
-      default:
-        render.displayError();
-    }
+    errorHandler(error);
   }
 }
 
@@ -104,8 +100,7 @@ async function addBookmark(url, tags) {
     downloadSpiner.stop();
     render.displaySuccess('Bookmark added successfully');
   } catch (error) {
-    downloadSpiner.stop();
-    render.displayError();
+    errorHandler(error);
   }
 }
 
@@ -114,7 +109,7 @@ async function deleteBookmark(id) {
     await BookmarkService.destroyBookmark(id);
     render.displaySuccess('Bookmark deleted successfully');
   } catch (error) {
-    render.displayError();
+    errorHandler(error);
   }
 }
 
@@ -127,16 +122,10 @@ async function starBookmark(id) {
     });
 
     render.displaySuccess(
-      `Bookmark ${bookmark.star ? 'unstarred' : 'starred'} successfully`,
+      `Bookmark ${bookmark.star ? 'unstarred' : 'starred'} successfully`
     );
   } catch (error) {
-    switch (error.message) {
-      case 'Bookmark not found':
-        render.displayError(error.message);
-        break;
-      default:
-        render.displayError();
-    }
+    errorHandler(error);
   }
 }
 
@@ -149,16 +138,10 @@ async function archiveBookmark(id) {
     });
 
     render.displaySuccess(
-      `Bookmark ${bookmark.archive ? 'restore' : 'archived'} successfully`,
+      `Bookmark ${bookmark.archive ? 'restore' : 'archived'} successfully`
     );
   } catch (error) {
-    switch (error.message) {
-      case 'Bookmark not found':
-        render.displayError(error.message);
-        break;
-      default:
-        render.displayError();
-    }
+    errorHandler(error);
   }
 }
 
@@ -167,13 +150,7 @@ async function setTags(id, tags) {
     await BookmarkService.addTags(id, tags);
     render.displaySuccess('Tags set successfully');
   } catch (error) {
-    switch (error.message) {
-      case 'Bookmark not found':
-        render.displayError(error.message);
-        break;
-      default:
-        render.displayError();
-    }
+    errorHandler(error);
   }
 }
 
@@ -182,13 +159,7 @@ async function openBookmark(id) {
     const { href } = await BookmarkService.getBookmark(id);
     await open(href);
   } catch (error) {
-    switch (error.message) {
-      case 'Bookmark not found':
-        render.displayError(error.message);
-        break;
-      default:
-        render.displayError();
-    }
+    errorHandler(error);
   }
 }
 
@@ -196,18 +167,31 @@ async function readBookmark(id) {
   try {
     const bookmark = await BookmarkService.getBookmark(id);
     createSpiner.start();
+
     const filePath = await createBookmarkFile(bookmark);
+
     await open(filePath);
     createSpiner.stop();
   } catch (error) {
-    createSpiner.stop();
-    switch (error.message) {
-      case 'Bookmark not found':
-        render.displayError(error.message);
-        break;
-      default:
-        render.displayError();
-    }
+    errorHandler(error);
+  }
+}
+
+function errorHandler(error) {
+  createSpiner.stop();
+  downloadSpiner.stop();
+
+  if (process.env.NODE_ENV !== 'production') {
+    console.log(error);
+    return;
+  }
+
+  switch (error.message) {
+    case 'Bookmark not found':
+      render.displayError(error.message);
+      break;
+    default:
+      render.displayError();
   }
 }
 
