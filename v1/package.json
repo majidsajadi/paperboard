@@ -28,7 +28,7 @@
         "instapaper"
     ],
     "dependencies": {
-        "axios": "^0.19.2",
+        "axios": "^0.21.1",
         "chalk": "^3.0.0",
         "commander": "^5.0.0",
         "dayjs": "^1.8.22",
