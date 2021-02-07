@@ -16,7 +16,6 @@ const getAllBookmarks = async (req, res) => {
 
 
 const getArchivedBookmarks = async (req, res) => {
-    console.log(123)
     const attributes = [
         'id',
         'title',
