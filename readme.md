@@ -10,6 +10,11 @@
   <img alt="screenshot" src="./screenshot.png"/>
 </div>
 
+<h4 align="center">
+  Paperboard, is under development. You may encounter bugs or there will be breaking changes. 
+</h4>
+
+
 ## Install
 
 ### Yarn
